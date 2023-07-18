@@ -1,0 +1,29 @@
+import pandas as pd
+from sklearn.ensemble import IsolationForest
+
+# Load your ERP accounting data into a pandas DataFrame
+data = pd.read_csv('accounting_data.csv')
+
+# Preprocess the data if needed (e.g., handle missing values, normalize/standardize features)
+
+# Select the features you want to use for anomaly detection
+features = ['feature1', 'feature2', 'feature3']  # Adjust the column names according to your data
+
+# Create a new DataFrame with only the selected features
+data_selected = data[features]
+
+# Create an isolation forest model
+model = IsolationForest(contamination=0.05)  # Adjust the contamination parameter based on your requirements
+
+# Fit the model to the selected data
+model.fit(data_selected)
+
+# Predict the anomalies in the data
+predictions = model.predict(data_selected)
+
+# Add the predictions as a new column in the original DataFrame
+data['anomaly'] = predictions
+
+# Analyze the anomalies (e.g., identify and investigate the data points labeled as anomalies)
+
+# Once the model is trained and anomalies are identified, you can integrate the anomaly detection system into your ERP accounting system to flag and handle potential anomalies.
