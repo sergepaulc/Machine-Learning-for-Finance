@@ -1,0 +1,37 @@
+import pandas as pd
+import numpy as np
+from statsmodels.tsa.arima.model import ARIMA
+
+# Load cash flow data into a pandas DataFrame
+data = pd.read_csv('cash_flow_data.csv')
+
+# Preprocess the data if needed (e.g., handle missing values, adjust data types)
+
+# Convert the date column to a datetime type
+data['date'] = pd.to_datetime(data['date'])
+
+# Set the date column as the index
+data.set_index('date', inplace=True)
+
+# Create a train-test split (adjust the ratio based on your data)
+train_size = int(len(data) * 0.8)
+train_data, test_data = data.iloc[:train_size], data.iloc[train_size:]
+
+# Fit the ARIMA model to the training data
+model = ARIMA(train_data, order=(1, 1, 1))  # Adjust the order parameter based on your data
+model_fit = model.fit()
+
+# Forecast cash flows for the test period
+forecasted_values = model_fit.forecast(steps=len(test_data))[0]
+
+# Evaluate the forecast performance (e.g., calculate metrics like mean squared error, MAPE)
+
+# Visualize the forecasted values and compare them with the actual values
+forecasted_df = pd.DataFrame(forecasted_values, index=test_data.index, columns=['forecast'])
+comparison_df = pd.concat([test_data, forecasted_df], axis=1)
+
+# Once the model is trained and evaluated, you can use it to forecast cash flows for future periods
+future_periods = 12  # Adjust the number of future periods to forecast
+future_forecast = model_fit.forecast(steps=future_periods)[0]
+
+# Use the future_forecast for further analysis or integration into your ERP accounting system
