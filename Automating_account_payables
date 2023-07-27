@@ -3,13 +3,14 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import LocalOutlierFactor
 
-# Function to extract data from a bill
+# Function to extract data from a bill image
 def extract_data(bill_image):
     # Add code to extract data from the bill image and return it as a dictionary
     extracted_data = {
         'vendor': 'Vendor Name',
         'amount': 100.0,
         'date': '2023-05-15',
+        'purchase_order_number': 'PO12345',
         # Add more fields as per your requirements
     }
     return extracted_data
@@ -21,6 +22,7 @@ def predict_fields(bill_data):
         'vendor': 'Predicted Vendor Name',
         'amount': 110.0,
         'date': '2023-05-15',
+        'purchase_order_number': 'Predicted PO12345',
         # Add more predicted fields as per your requirements
     }
     return predicted_fields
@@ -32,9 +34,16 @@ def detect_anomalies(bill_data):
         'vendor': 0.1,
         'amount': -1.2,
         'date': 0.5,
+        'purchase_order_number': 0.8,
         # Add more anomaly scores for other fields as per your requirements
     }
     return anomaly_scores
+
+# Function to match the bill to an existing purchase order
+def match_purchase_order(bill_data):
+    # Add code to match the bill to an existing purchase order in your ERP system
+    purchase_order_status = 'Matched'
+    return purchase_order_status
 
 # Function to pay a bill
 def pay_bill(bill_data):
@@ -53,7 +62,7 @@ def main():
     # Load the bill image
     bill_image = 'bill_image.jpg'
 
-    # Extract data from the bill
+    # Extract data from the bill image
     extracted_data = extract_data(bill_image)
 
     # Predict various fields in the bill
@@ -61,6 +70,9 @@ def main():
 
     # Detect anomalies in the bill
     anomaly_scores = detect_anomalies(predicted_fields)
+
+    # Match the bill to an existing purchase order
+    purchase_order_status = match_purchase_order(predicted_fields)
 
     # Pay the bill
     payment_status = pay_bill(predicted_fields)
@@ -75,9 +87,11 @@ def main():
     print("Extracted Data:", extracted_data)
     print("Predicted Fields:", predicted_fields)
     print("Anomaly Scores:", anomaly_scores)
+    print("Purchase Order Status:", purchase_order_status)
     print("Payment Status:", payment_status)
     print("Reconciliation Status:", reconciliation_status)
 
 # Run the program
 if __name__ == '__main__':
     main()
+
