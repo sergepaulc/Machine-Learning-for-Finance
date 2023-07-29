@@ -4,7 +4,7 @@
 
 Machine learning models can be used in enterprise finance to streamline workflows, provide insights, help with decision making, and increase customer engagement.
 
-Some basic models can be implemented for the following use cases such as:
+Some basic models can be implemented for the following use cases:
 
 - Computer vision techniques can be used to recognize characters and numbers, and extract data from a scanned document or an image
 - Regressions can help to estimate the value of an asset
