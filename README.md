@@ -24,5 +24,14 @@ Last but not least, financial networks can be modeled as graph neural networks w
 - GNNs can help for product demand forecasting, supply chain management, and optimizing inventories
 - GNNs are also good tools to evaluate risky financial transactions that could be illegal such as money laundering
 
-A few examples of models are provided in the repositories above:
+This repository includes a few examples of models:
+
+- Bank_reconciliation
+- Matching_PO_to_Bills
+- Outlier_detection_Bill
+- Outlier_detection_PO
+- Forecasting_cash_flows_ARIMA
+- Forecasting_cash_flows_GAM
+- Automating_account_payables
+
 
