@@ -34,7 +34,7 @@ Last but not least, financial networks can be modeled as graph neural networks w
 This repository includes a few examples of models developed in Python using scikit-learn and PyTorch:
 
 - Bank reconciliation
-- Matching a purchase order (P.O.)to a bill
+- Matching a purchase order (P.O.) to a bill
 - Outlier detection in a bill
 - Outlier detection in a purchase order (P.O.)
 - Forecasting cash flows using ARIMA
