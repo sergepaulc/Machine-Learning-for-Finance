@@ -20,7 +20,7 @@ Multiple models can be implemented together for an end-to-end workflow such as a
 
 ## A few samples of models
 
-This repository includes a few examples of models developed in Python using scikit-learn
+This repository includes a few examples of models developed in Python using scikit-learn:
 
 - Bank_reconciliation
 - Matching_PO_to_Bills
