@@ -5,23 +5,27 @@ from torch_geometric.data import Data, DataLoader
 from torch_geometric.nn import GCNConv
 
 # Sample data for the product graph (Replace this with your actual data)
+# Each node represents a product, and the features include prices, number of product ordered,
+# number of product manufactured, and product inventory.
 product_data = {
     'prices': [10.0, 12.0, 15.0],
+    'ordered': [100, 120, 130],
     'manufactured': [1000, 1200, 1300],
     'inventory': [200, 300, 400]
 }
 
 # Sample data for external features (Replace this with your actual data)
+# These features include weather, holidays, events, and macroeconomic data.
 external_data = {
     'weather': [25.0, 28.0, 30.0],
     'holidays': [0, 1, 0],
     'events': [2, 1, 3],
-    'macroeconomic': [100, 110, 95],
-    'demographic': [500, 550, 600]
+    'macroeconomic': [100, 110, 95]
 }
 
 # Convert the data to tensors
 prices = torch.tensor(product_data['prices'], dtype=torch.float)
+ordered = torch.tensor(product_data['ordered'], dtype=torch.float)
 manufactured = torch.tensor(product_data['manufactured'], dtype=torch.float)
 inventory = torch.tensor(product_data['inventory'], dtype=torch.float)
 
@@ -29,17 +33,18 @@ weather = torch.tensor(external_data['weather'], dtype=torch.float)
 holidays = torch.tensor(external_data['holidays'], dtype=torch.float)
 events = torch.tensor(external_data['events'], dtype=torch.float)
 macroeconomic = torch.tensor(external_data['macroeconomic'], dtype=torch.float)
-demographic = torch.tensor(external_data['demographic'], dtype=torch.float)
 
 # Combine the features into a node feature matrix
-node_features = torch.stack([prices, manufactured, inventory, weather, holidays, events, macroeconomic, demographic], dim=1)
+node_features = torch.stack([prices, ordered, manufactured, inventory, weather, holidays, events, macroeconomic], dim=1)
 
 # Sample graph structure (Replace this with your actual graph structure)
-edge_index = torch.tensor([[0, 1, 2], [1, 0, 2]], dtype=torch.long)
-edge_attr = None  # Optional edge attributes (e.g., edge weights)
+# Here, we assume a fully connected graph, where each node is connected to all other nodes.
+# In practice, you may have a different graph structure based on the relationships between products.
+num_nodes = node_features.size(0)
+edge_index = torch.tensor([(i, j) for i in range(num_nodes) for j in range(num_nodes) if i != j], dtype=torch.long).t()
 
 # Create a PyTorch Geometric Data object
-data = Data(x=node_features, edge_index=edge_index, edge_attr=edge_attr)
+data = Data(x=node_features, edge_index=edge_index)
 
 # Define the GNN model
 class GNNModel(nn.Module):
@@ -78,14 +83,15 @@ num_epochs = 1000
 for epoch in range(num_epochs):
     optimizer.zero_grad()
     predictions = gnn_model(data)
-    loss = loss_function(predictions, demand_data.view(-1, 1))
+    loss = loss_function(predictions.view(-1), demand_data)
     loss.backward()
     optimizer.step()
     if epoch % 100 == 0:
         print(f"Epoch {epoch}/{num_epochs}, Loss: {loss.item()}")
 
 # Once the model is trained, you can use it to predict demand for new products
-new_product_features = torch.tensor([[16.0, 1100, 250, 28.0, 1, 1, 115, 570]], dtype=torch.float)
-new_data = Data(x=new_product_features, edge_index=edge_index, edge_attr=edge_attr)
+new_product_features = torch.tensor([[16.0, 110, 1150, 250, 28.0, 1, 1, 115]], dtype=torch.float)
+new_data = Data(x=new_product_features, edge_index=edge_index)
 predicted_demand = gnn_model(new_data)
 print("Predicted Demand:", predicted_demand.item())
+
