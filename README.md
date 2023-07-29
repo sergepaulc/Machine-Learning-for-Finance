@@ -4,7 +4,7 @@
 
 Machine learning models can be used in enterprise finance to streamline workflows, provide insights, help with decision making, and increase customer engagement.
 
-Some basic statistical models can be implemented for multiple enterprise finance and accounting use cases such as:
+Some basic models can be implemented for the following use cases such as:
 
 - Computer vision techniques can be used to recognize characters and numbers, and extract data from a scanned document or an image
 - Regressions can help to estimate the value of an asset
@@ -29,6 +29,8 @@ This repository includes a few examples of models developed in Python using scik
 - Forecasting_cash_flows_ARIMA
 - Forecasting_cash_flows_GAM
 - Automating_account_payables
+
+## Licensing
 
 This project is licensed under the terms of the MIT license.
 
