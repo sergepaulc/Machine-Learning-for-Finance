@@ -1,0 +1,64 @@
+import numpy as np
+
+# Define the state and action spaces (Replace this with your actual data)
+state_space = ['vendor_A', 'vendor_B', 'amount_low', 'amount_high', 'date_early', 'date_late']
+action_space = ['account_code_1', 'account_code_2', 'account_code_3']
+
+# Initialize the Q-table with zeros
+q_table = np.zeros((len(state_space), len(action_space)))
+
+# Q-learning parameters
+learning_rate = 0.1
+discount_factor = 0.9
+exploration_prob = 0.3
+
+# Function to choose an action using an epsilon-greedy policy
+def choose_action(state):
+    if np.random.uniform(0, 1) < exploration_prob:
+        return np.random.choice(action_space)
+    else:
+        state_idx = state_space.index(state)
+        return action_space[np.argmax(q_table[state_idx, :])]
+
+# Function to update the Q-table based on the reward received
+def update_q_table(state, action, next_state, reward):
+    state_idx = state_space.index(state)
+    action_idx = action_space.index(action)
+    next_state_idx = state_space.index(next_state)
+    
+    q_table[state_idx, action_idx] += learning_rate * (reward + discount_factor * np.max(q_table[next_state_idx, :]) - q_table[state_idx, action_idx])
+
+# Main RL training loop
+def train_rl_agent(num_episodes):
+    for episode in range(num_episodes):
+        # Replace this with your actual data for a bill and the correct account code
+        bill_data = {'vendor': 'vendor_A', 'amount': 'low', 'date': 'early'}
+        correct_account_code = 'account_code_1'
+        
+        state = bill_data['vendor'] + '_' + bill_data['amount'] + '_' + bill_data['date']
+        done = False
+
+        while not done:
+            action = choose_action(state)
+
+            # Simulate the account code prediction (Replace this with your prediction model)
+            predicted_account_code = action
+
+            # Simulate receiving user feedback (Replace this with your actual feedback mechanism)
+            # Assume the reward is 1 if the prediction is correct and -1 otherwise
+            reward = 1 if predicted_account_code == correct_account_code else -1
+
+            # Update the Q-table
+            next_state = 'Next_state_from_environment'  # Replace this with the next state from the environment
+            update_q_table(state, action, next_state, reward)
+
+            state = next_state
+
+            # Terminate the episode if necessary (e.g., after a fixed number of steps or reaching a terminal state)
+            done = True  # Replace this with your termination condition
+
+# Train the RL agent
+train_rl_agent(num_episodes=1000)
+
+# After training, the agent's Q-table can be used for predicting the account coding for new bills.
+# Use the 'q_table' to choose the action (predicted account code) based on the current state (bill data).
