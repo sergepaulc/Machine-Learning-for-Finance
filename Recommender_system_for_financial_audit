@@ -1,0 +1,60 @@
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
+
+# Sample data for users and tasks (Replace this with your actual data)
+users_data = pd.DataFrame({
+    'user_id': [1, 2, 3],
+    'user_skills': ['data analysis, risk assessment', 'accounting, compliance', 'financial reporting'],
+})
+
+tasks_data = pd.DataFrame({
+    'task_id': [101, 102, 103, 104],
+    'task_description': [
+        'Perform data analysis for audit',
+        'Conduct risk assessment for audit',
+        'Prepare financial statements',
+        'Conduct compliance review',
+    ],
+})
+
+# Create TF-IDF vectorizers for user skills and task descriptions
+user_vectorizer = TfidfVectorizer()
+task_vectorizer = TfidfVectorizer()
+
+# Fit and transform TF-IDF vectors for user skills and task descriptions
+user_vectors = user_vectorizer.fit_transform(users_data['user_skills'])
+task_vectors = task_vectorizer.fit_transform(tasks_data['task_description'])
+
+# Calculate user-task similarity scores using cosine similarity
+user_task_similarity = linear_kernel(user_vectors, task_vectors)
+
+# Calculate task-task similarity scores using cosine similarity
+task_task_similarity = linear_kernel(task_vectors, task_vectors)
+
+# Function to recommend tasks for a given user based on user-task collaborative filtering
+def user_task_collaborative_filtering(user_id, top_n=3):
+    user_index = users_data[users_data['user_id'] == user_id].index[0]
+    task_indices = user_task_similarity[user_index].argsort()[::-1]
+    top_recommendations = task_indices[:top_n]
+    recommended_tasks = tasks_data.loc[top_recommendations, ['task_id', 'task_description']]
+    return recommended_tasks
+
+# Function to recommend tasks based on task-task collaborative filtering
+def task_task_collaborative_filtering(task_id, top_n=3):
+    task_index = tasks_data[tasks_data['task_id'] == task_id].index[0]
+    task_indices = task_task_similarity[task_index].argsort()[::-1]
+    top_recommendations = task_indices[1:top_n+1]  # Exclude the first index, which is the task itself
+    recommended_tasks = tasks_data.loc[top_recommendations, ['task_id', 'task_description']]
+    return recommended_tasks
+
+# Example: Recommend tasks for user with user_id=1 using user-task collaborative filtering
+user_id = 1
+user_task_recommendations = user_task_collaborative_filtering(user_id)
+print(f"User-Task Collaborative Filtering Recommendations for User {user_id}:\n{user_task_recommendations}")
+
+# Example: Recommend tasks for task with task_id=101 using task-task collaborative filtering
+task_id = 101
+task_task_recommendations = task_task_collaborative_filtering(task_id)
+print(f"Task-Task Collaborative Filtering Recommendations for Task {task_id}:\n{task_task_recommendations}")
+
