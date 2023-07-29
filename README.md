@@ -31,7 +31,7 @@ Last but not least, financial networks can be modeled as graph neural networks w
 
 ## A few samples of models
 
-This repository includes a few examples of models developed in Python using scikit-learn:
+This repository includes a few examples of models developed in Python using scikit-learn and PyTorch:
 
 - Bank reconciliation
 - Matching a purchase order (P.O.)to a bill
@@ -42,6 +42,7 @@ This repository includes a few examples of models developed in Python using scik
 - Automating account payables
 - Recommender system for a financial audit
 - Reinforcement learning to collect user feedback and improve the predictions of account coding in a bill
+- Graph neural networks to predict the demand for a product
 
 ## Licensing
 
