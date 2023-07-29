@@ -1,4 +1,4 @@
-# Machine-Learning-for- Finance
+# Machine-Learning-for-Finance
 
 Machine learning models can be used in enterprise finance to streamline workflows, provide insights, help with decision making, and increase customer engagement.
 
