@@ -22,13 +22,14 @@ Multiple models can be implemented together for an end-to-end workflow such as a
 
 This repository includes a few examples of models developed in Python using scikit-learn:
 
-- Bank_reconciliation
-- Matching_PO_to_Bills
-- Outlier_detection_Bill
-- Outlier_detection_PO
-- Forecasting_cash_flows_ARIMA
-- Forecasting_cash_flows_GAM
-- Automating_account_payables
+- Bank reconciliation
+- Matching PO to Bills
+- Outlier detection in a Bill
+- Outlier detection in a PO
+- Forecasting cash flows using ARIMA
+- Forecasting cash flows using GAM
+- Automating account payables
+- Recommender system for a financial audit
 
 ## Licensing
 
