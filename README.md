@@ -18,18 +18,30 @@ Multiple models can be implemented together for an end-to-end workflow such as a
 
 - Extracting data for a scanned bill, accounts coding, detecting anomalies in the bill, paying the bill after the user validated it, and reconciling the payment of the bill with a bank debit transaction
 
+## More complex models
+More complex models can also be investigated such as:
+
+- Recommender systems for recommending dashboards, reports, and tasks for an audit
+- Reinforcement learning where transaction data is predicted, classified, anomalies are detected, and an agent will collect user feedback to improve the model predictions
+
+Last but not least, financial networks can be modeled as graph neural networks where financial entities can be represented as nodes, and their interconnections or interactions as edges. Graph neural networks (GNNs) can be used in finance for forecasting and anomaly detection:
+
+- GNNs can help for product demand forecasting, supply chain management, and optimizing inventories
+- GNNs are also good tools to evaluate risky financial transactions that could be illegal such as money laundering
+
 ## A few samples of models
 
 This repository includes a few examples of models developed in Python using scikit-learn:
 
 - Bank reconciliation
-- Matching PO to Bills
-- Outlier detection in a Bill
-- Outlier detection in a PO
+- Matching a purchase order (P.O.)to a bill
+- Outlier detection in a bill
+- Outlier detection in a purchase order (P.O.)
 - Forecasting cash flows using ARIMA
 - Forecasting cash flows using GAM
 - Automating account payables
 - Recommender system for a financial audit
+- Reinforcement learning to collect user feedback and improve the predictions of account coding in a bill
 
 ## Licensing
 
