@@ -34,4 +34,6 @@ This repository includes a few examples of models:
 - Forecasting_cash_flows_GAM
 - Automating_account_payables
 
+This project is licensed under the terms of the MIT license.
+
 
